@@ -2,23 +2,35 @@
 
 # Function to display a progress bar
 progress_bar() {
-    local width=50
-    local percentage=$1
+    local columns=$(tput cols)
+    local width=$((columns / 2))
+    width=$((width - 7))
+    local value=$1
     local max=$2
 
     if [ -z "$2" ]; then
         max=100
     fi
 
-    if [ "$percentage" -gt "$max" ]; then
-        max=$percentage
+    if [ "$value" -gt "$max" ]; then
+        max=$value
     fi
-
-    local filled=$((percentage * width / max))
+    local percentage=$((value * 100 / max))
+    local filled=$((value * width / max))
     local empty=$((width - filled))
 
     printf "["
     printf "%${filled}s" | tr ' ' '#'
     printf "%${empty}s" | tr ' ' '-'
     printf "] %d%%\r" "$percentage"
+}
+
+# Function to fill the terminal with spaces
+fill_to_half_with_space() {
+    local message=$1
+    local columns=$(tput cols)
+    local half=$((columns / 2))
+    local message_length=${#message}
+    printf "${message}"
+    printf "%$((half - message_length))s"
 }
