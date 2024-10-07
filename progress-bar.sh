@@ -25,6 +25,18 @@ progress_bar() {
     printf "] %d%%\r" "$percentage"
 }
 
+progress_bar_info() {
+    printf "\e[96m"
+    progress_bar $1 $2
+    printf "\e[0m"
+}
+
+progress_bar_color() {
+   printf "\e[$3"
+   progress_bar $1 $2
+   printf "\e[0m"
+}
+
 # Function to fill the terminal with spaces
 fill_to_half_with_space() {
     local message=$1
