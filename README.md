@@ -87,7 +87,7 @@ total_steps=10
 for ((step=1; step<=total_steps; step++))
 do
     fill_to_half_with_space "Progress bar (with color), step: $step/$total_steps"
-    progress_bar_color $step $total_steps "92m"
+    progress_bar_color $step $total_steps $Green"
     sleep 0.1
 done
 ```
